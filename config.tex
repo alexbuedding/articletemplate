@@ -1,0 +1,137 @@
+\documentclass[12pt]{article}                           % font size and type of document
+\usepackage[a4paper, margin = 25mm]{geometry}           % paper size and margins
+\usepackage[onehalfspacing]{setspace}                   % line spacing
+\usepackage{lipsum}                                     % create dummy text in order to check                                                               % formating
+
+\usepackage[T1]{fontenc}                                % hyphenating of words containing accented                                                          % chars, font encoding for accented chars
+\usepackage{textcomp}                                   % additional symbols
+\usepackage{mathptmx}                                   % font type (Times)
+
+\usepackage[utf8]{inputenc}                             % used for mutated vowels e.g. ä, ü, ö, ß
+\usepackage[ngerman]{babel}                             % load multilingual support for german
+\usepackage[babel,german=guillemets]{csquotes}          % ensure multilingual support for biblatex                                                          % quoting
+
+\newcommand{\titlename}{article template}               % change title of document
+\newcommand{\authorname}{prename surname}               % and name of author here
+                                                        % applied in whole document
+\title{\titlename}
+\author{\authorname}
+\date{\today}
+\newcounter{savepage}
+
+\usepackage[hyphens]{url}                               % hyphening links
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={\titlename},
+    pdfauthor={\authorname},
+    pdfpagemode=FullScreen,
+    }
+\urlstyle{same}                                         % allows links within pdf document and to                                                                 external websites
+
+\usepackage{xcolor}                                     % load xcolor package for customization
+\usepackage{listings}                                   % supports listings environments
+\definecolor{codegreen}{rgb}{0,0.6,0}                   % define and set custom colors
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{                               % define listings style
+    language={C++},
+    morecomment=[l]{//},
+    morekeywords={String},
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\renewcommand{\lstlistlistingname}{Quellcodeverzeichnis}
+\renewcommand{\lstlistingname}{Quellcode}               % change name of list of listings
+\lstset{style=mystyle}                                  % set listings style to my defined style
+
+\usepackage{graphicx}                                   % required for inserting images
+\graphicspath{{images/}}
+\usepackage{caption}                                    % more customization of captions
+%\captionsetup{figurename=Abb., tablename=Tab.}
+\usepackage{wrapfig}                                    % wrap text around figures
+\DeclareCaptionType{mycapequ}[][Formelverzeichnis]      % adds list of equations
+\DeclareCaptionLabelFormat{nan}{Gleichung #2}           % caption compatibility with equations 
+\captionsetup[mycapequ]{labelformat=nan}
+
+\usepackage[final]{pdfpages}                            % adds support for pdf file integration
+\usepackage{tikz}                                       % create graphics in latex environment
+\usetikzlibrary{positioning, calc}                      % enable relative positioning of nodes in tikz figure
+\usepackage{pgfplots}                                   % create diagram, charts etc. with tikz library
+\pgfplotsset{compat=1.18}                               % set used pgfplot package version for compatibility
+\usepackage{amsmath}                                    % enhanced mathematical expressions
+\usepackage{siunitx}                                    % includes si units support
+\usepackage[ngerman, noabbrev]{cleveref}                % improves referencing of tables,                                                                      % figures, equations, etc.
+%\crefformat{equation}{Gl.~(#2#1#3)}                    % customise reference to Gl. (default
+                                                        %  "Gleichung")
+\crefname{listing}{Quellcode}{Quellcodes}               % change reference name
+\Crefname{listing}{Quellcode}{Quellcodes}
+
+\usepackage{tocloft}                                    % extension for toc, lof, lot and other lists
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}   % dot line for sections in toc
+\usepackage{tocbibind}                                  % adds all lists to table of contents
+
+\usepackage[acronym,toc,translate=babel,
+            nonumberlist, nopostdot]{glossaries}
+\renewcommand{\glsnamefont}[1]{\textbf{#1}}
+\setlength\LTleft{0pt}
+\setlength\LTright{0pt}
+\setlength\glsdescwidth{0.8\hsize}                      % adds support for glossary and
+\makenoidxglossaries                                         % acronyms and abbreviations
+\input{acronyms}
+\input{glossary}
+
+\usepackage[                                            % header for bibliography
+    backend=biber, 
+    natbib=true,
+    hyperref=true,
+    style=ieee,
+    sorting=none,
+]{biblatex}
+%\DeclareLanguageMapping{ngerman}{german-apa}           % only necessary for biblatex-apa style
+%\DeclareFieldInputHandler{extradate}{\def\NewValue{}}  % remove suffix letters if author and year
+\addbibresource{references.bib}                         % are identical in bibliography
+
+\usepackage[activate={true,nocompatibility},            % activate protrusion and expansion
+            final,                                      % enable microtype; use "draft" to disable
+            tracking=true,                              % activate these techniques
+            kerning=true,
+            spacing=true,
+            factor=1100,                                % add 10% protrusion amount (default is 
+            stretch=10,                                 % 1000);reduce stretchability/shrinkability 
+            shrink=10]{microtype}                       % (default is 20/20)
+\SetProtrusion{encoding={*},family={bch},series={*},size={6,7}}
+              {1={ ,750},2={ ,500},3={ ,500},4={ ,500},5={ ,500},
+               6={ ,500},7={ ,600},8={ ,500},9={ ,500},0={ ,500}}
+\SetTracking{encoding={*}, shape=sc}{40}
+\SetExtraKerning[unit=space]
+    {encoding={*}, family={qhv}, series={b}, size={large,Large}}
+    {1={-200,-200}, \textendash={400,400}}              % microtype package improves general                                                            % appearence
+
+\usepackage{afterpage}                                  % commands get expanded after the current                                                           % page  
+\newcommand\blankpage{                                  % is output using \afterpage{\command}
+    \newpage                                            % -> useful for \clearpage
+    \null                                               % define command to insert blank page
+    \thispagestyle{empty}
+    \newpage}
