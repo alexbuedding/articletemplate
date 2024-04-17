@@ -51,9 +51,9 @@
 \pagenumbering{arabic}
 
 \section{Abschnitt}\label{sec:first}
-\lipsum[]\cite{biblatex}
-\acrshort{utc}
-\gls{latex}
+
+\lipsum[1-5]\cite{biblatex}\acrshort{utc}\gls{latex}
+
 \begin{mycapequ}[!ht]
     \begin{equation}
         {P(\bigcup_{n=1}^n A_n) \leq \sum_{n=1}^n P(A_n)}
@@ -168,9 +168,23 @@ Und noch ein Beispiel für einen \cref{lst:example} den wir alle lieben.
 
 \clearpage
 
+\section{Abschnitt zum Testen der Überschriftenformatierung}\label{sec:formattest}
+
+Mein Name ist Bernhard.
+
+\subsection{Unterabschnitt zum Testen der Überschriftenformatierung}\label{subsec:formattest}
+
+Ich bin 32 Jahre alt.
+
+\subsubsection{Unterunterabschnitt zum Testen der Überschriftenformatierung}\label{subsubsec:formattest}
+
+Und ich bin Lehrer.
+
+\clearpage
+
 \section{Letzter Abschnitt}\label{sec:last}
 
-\lipsum[1]
+\lipsum[6]
 
 \begin{wrapfigure}{l}{0.4\textwidth}
     \centering
@@ -180,7 +194,7 @@ Und noch ein Beispiel für einen \cref{lst:example} den wir alle lieben.
     \label{fig:textwrappedaroundexampleimage}
 \end{wrapfigure}
 
-\lipsum[2-4]
+\lipsum[7-9]
 
 \clearpage
 
@@ -306,8 +320,7 @@ Und noch ein Beispiel für einen \cref{lst:example} den wir alle lieben.
 \pagenumbering{Roman}
 \setcounter{page}{\thesavepage}
 
-\printbibliography[heading = bibintoc,
-                   title = {Literaturverzeichnis}]
+\printbibliography[heading=bibintoc,title={Literaturverzeichnis}]
 
 \clearpage
 
