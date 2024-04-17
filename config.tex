@@ -1,25 +1,73 @@
 \documentclass[12pt]{article}                           % font size and type of document
-\usepackage[a4paper, margin = 25mm]{geometry}           % paper size and margins
+\usepackage[a4paper,margin=25mm]{geometry}              % paper size and margins
 \usepackage[onehalfspacing]{setspace}                   % line spacing
-\usepackage{lipsum}                                     % create dummy text in order to check                                                               % formating
 
-\usepackage[T1]{fontenc}                                % hyphenating of words containing accented                                                          % chars, font encoding for accented chars
+\usepackage{iftex}
+\ifPDFTeX
+   \usepackage[utf8]{inputenc}                          % used for mutated vowels e.g. ä, ü, ö, ß
+   \usepackage[T1]{fontenc}                             % font encoding for pdflatex compiler
+   \usepackage{mathptmx}                                % font type (Times)
+   %\usepackage{lmodern}
+\else
+   \ifXeTeX
+     \usepackage{fontspec}                              % font encoding for xelatex compiler
+   \else 
+     \usepackage{luatextra}                             % font encoding for lulatex compiler
+   \fi
+   \setmainfont{Times New Roman}                        % font type for xelatex or lulatex compiler
+   \defaultfontfeatures{Ligatures=TeX}                  % enable TeX ligatures (character combinations such as "fi", "fl", "ff", etc.) replaced with special ligature glyphs for improved readability and aesthetics
+   \usepackage{unicode-math}                            % math encoding and math fonts support
+   \setmathfont{TeX Gyre Termes Math}                   % set the math font to TeX Gyre Termes Math, which matches Times New Roman
+\fi
 \usepackage{textcomp}                                   % additional symbols
-\usepackage{mathptmx}                                   % font type (Times)
-
-\usepackage[utf8]{inputenc}                             % used for mutated vowels e.g. ä, ü, ö, ß
 \usepackage[ngerman]{babel}                             % load multilingual support for german
-\usepackage[babel,german=guillemets]{csquotes}          % ensure multilingual support for biblatex                                                          % quoting
+\usepackage[babel,german=guillemets]{csquotes}          % ensure multilingual support for biblatex quoting
 
 \newcommand{\titlename}{article template}               % change title of document
 \newcommand{\authorname}{prename surname}               % and name of author here
-                                                        % applied in whole document
-\title{\titlename}
+\title{\titlename}                                      % applied in whole document
 \author{\authorname}
 \date{\today}
-\newcounter{savepage}
+\newcounter{savepage}                                   % save page number inside document
 
-\usepackage[hyphens]{url}                               % hyphening links
+\usepackage[nostruts]{titlesec}
+%\titleformat{\section}                                          % adjust section title format
+%    {\normalfont\Large\bfseries}{\thesection}{1em}{}            % default
+%\titlespacing*{\section}{0pt}{22pt}{16pt}                       % adjust section title spacing, default
+%\titleformat{\subsection}                                       % adjust subsection title format
+%    {\normalfont\large\bfseries}{\thesubsection}{1em}{}         % default
+%\titlespacing*{\subsection}{0pt}{19.5pt}{12pt}                  % adjust subsection title spacing, default
+%\titleformat{\subsubsection}                                    % adjust subsubsection title format
+%    {\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{} % default
+%\titlespacing*{\subsubsection}{0pt}{19.5pt}{12pt}               % adjust subsubsection title spacing, default
+
+\usepackage[titles]{tocloft}                                    % extension for toc, lof, lot and other lists
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}           % dotted line for sections in toc
+%\cftsetindents{figure}{0pt}{40pt}                              % control space to left margin and the width of the numbers in lof
+%\cftsetindents{table}{0pt}{40pt}                               % control space to left margin and the width of the numbers in lot
+%\setlength{\cftsecnumwidth}{30pt}                              % adjust the width of the section numbers
+%\setlength{\cftsubsecnumwidth}{40pt}                           % adjust the width of the subsection numbers
+%\setlength{\cftsubsubsecnumwidth}{40pt}                        % adjust the width of the subsubsection numbers
+%\setlength{\cftfignumwidth}{40pt}                              % adjust the width of the figure numbers
+%\setlength{\cfttabnumwidth}{40pt}                              % adjust the width of the table numbers
+%\makeatletter
+%\renewcommand{\cftmarktoc}{\@mkboth{\contentsname}{\contentsname}}
+%\renewcommand{\cftmarklof}{\@mkboth{\listfigurename}{\listfigurename}}
+%\renewcommand{\cftmarklot}{\@mkboth{\listtablename}{\listtablename}}
+%\makeatother
+
+\usepackage[                                            % header for bibliography
+    backend=biber, 
+    natbib=true,
+    hyperref=true,
+    style=ieee,
+    sorting=none,
+]{biblatex}
+%\DeclareLanguageMapping{ngerman}{german-apa}           % only necessary for biblatex-apa style
+%\DeclareFieldInputHandler{extradate}{\def\NewValue{}}  % remove suffix letters if author and year
+\addbibresource{references.bib}                         % are identical in bibliography
+\usepackage{tocbibind}                                  % adds all lists to table of contents
+
 \usepackage{hyperref}
 \hypersetup{
     colorlinks=true,
@@ -31,7 +79,17 @@
     pdfauthor={\authorname},
     pdfpagemode=FullScreen,
     }
-\urlstyle{same}                                         % allows links within pdf document and to                                                                 external websites
+\urlstyle{same}                                         % allows links within pdf document and to external websites
+\usepackage{xurl}                                       % hyphening links
+
+\usepackage{graphicx}                                   % required for inserting images
+\graphicspath{{images/}}
+\usepackage{caption}                                    % more customization of captions
+%\captionsetup{figurename=Abb., tablename=Tab.}
+\usepackage{wrapfig}                                    % wrap text around figures
+\DeclareCaptionType{mycapequ}[][Formelverzeichnis]      % adds list of equations
+\DeclareCaptionLabelFormat{nan}{Gleichung #2}           % caption compatibility with equations 
+\captionsetup[mycapequ]{labelformat=nan}
 
 \usepackage{xcolor}                                     % load xcolor package for customization
 \usepackage{listings}                                   % supports listings environments
@@ -39,7 +97,6 @@
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
-
 \lstdefinestyle{mystyle}{                               % define listings style
     language={C++},
     morecomment=[l]{//},
@@ -61,57 +118,42 @@
     showtabs=false,                  
     tabsize=2
 }
-
 \renewcommand{\lstlistlistingname}{Quellcodeverzeichnis}
 \renewcommand{\lstlistingname}{Quellcode}               % change name of list of listings
 \lstset{style=mystyle}                                  % set listings style to my defined style
 
-\usepackage{graphicx}                                   % required for inserting images
-\graphicspath{{images/}}
-\usepackage{caption}                                    % more customization of captions
-%\captionsetup{figurename=Abb., tablename=Tab.}
-\usepackage{wrapfig}                                    % wrap text around figures
-\DeclareCaptionType{mycapequ}[][Formelverzeichnis]      % adds list of equations
-\DeclareCaptionLabelFormat{nan}{Gleichung #2}           % caption compatibility with equations 
-\captionsetup[mycapequ]{labelformat=nan}
+\usepackage[acronym,toc,translate=babel,nonumberlist, nopostdot]{glossaries}    % adds support for glossary and acronyms and abbreviations
+\renewcommand{\glsnamefont}[1]{\textbf{#1}}                                     % bold text for acronyms and glossary entries
+\setlength{\glslistdottedwidth}{28pt}                                           % set indentation of list of acronyms/glossaries to left margin
+\setlength\glsdescwidth{1.0\hsize}                                              % change width of list of acronyms or glossaries
+\makenoidxglossaries
+\input{acronyms}
+\input{glossary}
 
+\usepackage[ngerman, noabbrev]{cleveref}                % improves referencing of tables, figures, equations, etc.
+%\crefformat{equation}{Gl.~(#2#1#3)}                    % customise reference to Gl. (default "Gleichung")
+\crefname{listing}{Quellcode}{Quellcodes}               % change reference name
+\Crefname{listing}{Quellcode}{Quellcodes}
+
+\usepackage{lipsum}                                     % create dummy text in order to check formating
 \usepackage[final]{pdfpages}                            % adds support for pdf file integration
+\usepackage{amsmath}                                    % enhanced mathematical expressions
+\usepackage{siunitx}                                    % includes si units support
+\usepackage{longtable}                                  % for large tables that should continue on the next pages
+\newcommand{\colwidth}[1]{\dimexpr#1\linewidth-2\tabcolsep-1.5\arrayrulewidth}  % custom command for controlling the column width
+\usepackage{tabto}                                      % tabulator support
+\usepackage{enumitem}                                   % for customizing itemize/enumerate
+\newcommand{\multilineitemize}[1]{                      % custom command for controlling itemize environments inside tables
+  \begin{minipage}[t]{\linewidth}
+    \begin{itemize}[nosep,left=0pt,label=--,after=\strut]
+      #1
+    \end{itemize}
+  \end{minipage}
+}
 \usepackage{tikz}                                       % create graphics in latex environment
 \usetikzlibrary{positioning, calc}                      % enable relative positioning of nodes in tikz figure
 \usepackage{pgfplots}                                   % create diagram, charts etc. with tikz library
 \pgfplotsset{compat=1.18}                               % set used pgfplot package version for compatibility
-\usepackage{amsmath}                                    % enhanced mathematical expressions
-\usepackage{siunitx}                                    % includes si units support
-\usepackage[ngerman, noabbrev]{cleveref}                % improves referencing of tables,                                                                      % figures, equations, etc.
-%\crefformat{equation}{Gl.~(#2#1#3)}                    % customise reference to Gl. (default
-                                                        %  "Gleichung")
-\crefname{listing}{Quellcode}{Quellcodes}               % change reference name
-\Crefname{listing}{Quellcode}{Quellcodes}
-
-\usepackage{tocloft}                                    % extension for toc, lof, lot and other lists
-\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}   % dot line for sections in toc
-\usepackage{tocbibind}                                  % adds all lists to table of contents
-
-\usepackage[acronym,toc,translate=babel,
-            nonumberlist, nopostdot]{glossaries}
-\renewcommand{\glsnamefont}[1]{\textbf{#1}}
-\setlength\LTleft{0pt}
-\setlength\LTright{0pt}
-\setlength\glsdescwidth{0.8\hsize}                      % adds support for glossary and
-\makenoidxglossaries                                         % acronyms and abbreviations
-\input{acronyms}
-\input{glossary}
-
-\usepackage[                                            % header for bibliography
-    backend=biber, 
-    natbib=true,
-    hyperref=true,
-    style=ieee,
-    sorting=none,
-]{biblatex}
-%\DeclareLanguageMapping{ngerman}{german-apa}           % only necessary for biblatex-apa style
-%\DeclareFieldInputHandler{extradate}{\def\NewValue{}}  % remove suffix letters if author and year
-\addbibresource{references.bib}                         % are identical in bibliography
 
 \usepackage[activate={true,nocompatibility},            % activate protrusion and expansion
             final,                                      % enable microtype; use "draft" to disable
@@ -129,7 +171,7 @@
     {encoding={*}, family={qhv}, series={b}, size={large,Large}}
     {1={-200,-200}, \textendash={400,400}}              % microtype package improves general                                                            % appearence
 
-\usepackage{afterpage}                                  % commands get expanded after the current                                                           % page  
+\usepackage{afterpage}                                  % commands get expanded after the current page  
 \newcommand\blankpage{                                  % is output using \afterpage{\command}
     \newpage                                            % -> useful for \clearpage
     \null                                               % define command to insert blank page
