@@ -23,8 +23,8 @@
 \usepackage[ngerman]{babel}                             % load multilingual support for german
 \usepackage[babel,german=guillemets]{csquotes}          % ensure multilingual support for biblatex quoting
 
-\newcommand{\titlename}{article template}               % change title of document
-\newcommand{\authorname}{prename surname}               % and name of author here
+\newcommand{\titlename}{Equations and Graphs}           % change title of document
+\newcommand{\authorname}{Alex Buedding}                 % and name of author here
 \title{\titlename}                                      % applied in whole document
 \author{\authorname}
 \date{\today}
@@ -139,6 +139,7 @@
 \usepackage[final]{pdfpages}                            % adds support for pdf file integration
 \usepackage{amsmath}                                    % enhanced mathematical expressions
 \usepackage{siunitx}                                    % includes si units support
+\sisetup{locale=DE,per-mode=symbol}                     % german punctuation for numbers and inline units
 \usepackage{longtable}                                  % for large tables that should continue on the next pages
 \newcommand{\colwidth}[1]{\dimexpr#1\linewidth-2\tabcolsep-1.5\arrayrulewidth}  % custom command for controlling the column width
 \usepackage{tabto}                                      % tabulator support
@@ -154,6 +155,11 @@
 \usetikzlibrary{positioning, calc}                      % enable relative positioning of nodes in tikz figure
 \usepackage{pgfplots}                                   % create diagram, charts etc. with tikz library
 \pgfplotsset{compat=1.18}                               % set used pgfplot package version for compatibility
+\usepackage[siunitx,
+            straightvoltages,
+            EFvoltages,
+            europeanresistors,
+            americaninductors]{circuitikz}              % usage of simplified commands for drawing electrical circuits
 
 \usepackage[activate={true,nocompatibility},            % activate protrusion and expansion
             final,                                      % enable microtype; use "draft" to disable

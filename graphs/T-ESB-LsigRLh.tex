@@ -1,0 +1,26 @@
+% Transformator T-Ersatzschaltbild mit R, Lsigma und L1h 20201120
+\begin{tikzpicture}
+       \draw[color=black, thick]
+              % Grundlinie
+              (-6,0) to [short,-] (6,0){}
+              % Laengszweig links
+              (-6,3) to [short, i_=\(i_1\), -] (-5,3)
+              to [R, l=\(R_1\)]  (-3.5,3)
+              to [L,l=\(L_{1 \sigma}\),](-0.4,3)
+              to [short](0,3)
+              % Laengszweig rechts
+              to [short](0.4,3)
+              to [L,l=\(L'_{2 \sigma}\),](3.5,3)
+              to [R,l=\(R'_2\)] (5,3)
+              to [short, i_=\(i'_2\),-] (6,3){}
+              % Querzweig
+              (0,3) to [L, l=\(L_{1\mathrm{h}}\), i>^=\(i_\mu\), *-*](0,0)
+              % Anschlüsse
+              node[ocirc] (A) at (-6,3) {}
+              node[ocirc] (B) at (-6,0) {}
+              (A) to[open, v=\(u_1\)] (B)
+              node[ocirc] (C) at (6,3) {}
+              node[ocirc] (D) at (6,0) {}
+              (C) to[open, v^=\(u'_2\)] (D)
+       ;
+\end{tikzpicture}

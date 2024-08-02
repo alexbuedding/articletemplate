@@ -1,0 +1,25 @@
+% Transformator vereinfachtes T-Ersatzschaltbild 1 20201120
+\begin{tikzpicture}
+       \draw[color = black, thick]
+              % Grundlinie
+              (-3.9,0) to [short,-] (6,0){}
+              % Laengszweig links
+              (-3.9,3) to [short, i_= \(i_1\)] (-2.9,3)
+              to [R, l= \(R_1\),] (-0.4,3)
+              to [short] (0,3)
+              % Laengszweig rechts
+              to [short] (0.4,3)
+              to [L, l=\(L_1 {\frac{\sigma}{1 - \sigma}}\)] (2.9,3)
+              to [R, l = \( R'_2{(1 + \sigma_1)^{2}} \)] (4.6,3)
+              to [short,-,i_= \(\frac{i'_2}{(1+\sigma_1)}\)] (6,3){}
+              % Querzweig
+              (0,3) to [L, l=\(L_1\), i>^=\(i_0\), *-*](0,0)
+              % Anschlüsse
+              node[ocirc](A) at (-3.9,3){}
+              node[ocirc](B) at (-3.9,0){}
+              (A) to [open, v=\(u_1\)](B)
+              node[ocirc](C) at (6,3){}
+              node[ocirc](D) at (6,0){}
+              (C) to  [open, v^=\(u'_2(1 + \sigma_1)\)](D)
+       ;
+\end{tikzpicture}
